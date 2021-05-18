@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html data-markdown-preview-plus-context="html-export">
+  <head>
+    <meta charset="utf-8" />
+    <title>Segmentation.md</title><script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    jax: ["input/TeX","output/HTML-CSS"],
+    extensions: ["[a11y]/accessibility-menu.js"],
+    'HTML-CSS': {
+      availableFonts: [],
+      webFont: 'TeX',
+      undefinedFamily: "serif",
+      mtextFontInherit: true,
+    },
+    TeX: {
+  "Macros": {},
+  "equationNumbers": {},
+  "extensions": [
+    "AMSmath.js",
+    "AMSsymbols.js",
+    "noErrors.js",
+    "noUndefined.js"
+  ]
+},
+    showMathMenu: true
+  });
+</script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js"></script>
+    <style>.emoji {
+  max-width: 1em !important;
+}
+del {
+  text-decoration: none;
+  position: relative;
+}
+del::after {
+  border-bottom: 1px solid black;
+  content: '';
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 50%;
+}
+ul.contains-task-list li.task-list-item {
+  position: relative;
+  list-style-type: none;
+}
+ul.contains-task-list li.task-list-item input.task-list-item-checkbox {
+  position: absolute;
+  transform: translateX(-100%);
+  width: 30px;
+}
+span.critic.comment {
+  position: relative;
+}
+span.critic.comment::before {
+  content: '\1f4ac';
+  position: initial;
+}
+span.critic.comment > span {
+  display: none;
+}
+span.critic.comment:hover > span {
+  display: initial;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  border: 1px solid;
+  border-radius: 5px;
+  max-height: 4em;
+  overflow: auto;
+}
+span.critic.comment:focus > span {
+  display: initial;
+  text-decoration: underline;
+  position: initial;
+  top: auto;
+  left: auto;
+  border: initial;
+  border-radius: initial;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+  background-color: transparent;
+}
+
+body {
+  padding: 2em;
+  font-size: 1.2em;
+  color: #1d1f21;
+  background-color: #ffffff;
+  overflow: auto;
+}
+body > :first-child,
+body > div.update-preview > :first-child {
+  margin-top: 0;
+}
+body > p,
+body > div.update-preview > p {
+  margin-top: 0;
+  margin-bottom: 1.5em;
+}
+body > ul,
+body > div.update-preview > ul,
+body > ol,
+body > div.update-preview > ol {
+  margin-bottom: 1.5em;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  line-height: 1.2;
+  margin-top: 1.5em;
+  margin-bottom: 0.5em;
+  color: #000000;
+}
+h1 {
+  font-size: 2.4em;
+  font-weight: 300;
+}
+h2 {
+  font-size: 1.8em;
+  font-weight: 400;
+}
+h3 {
+  font-size: 1.5em;
+  font-weight: 500;
+}
+h4 {
+  font-size: 1.2em;
+  font-weight: 600;
+}
+h5 {
+  font-size: 1.1em;
+  font-weight: 600;
+}
+h6 {
+  font-size: 1em;
+  font-weight: 600;
+}
+strong {
+  color: #000000;
+}
+del {
+  color: #43484c;
+}
+a,
+a code {
+  color: #1d1f21;
+}
+img {
+  max-width: 100%;
+}
+blockquote {
+  margin: 1.5em 0;
+  font-size: inherit;
+  color: #43484c;
+  border-color: #d6d6d6;
+  border-width: 4px;
+}
+hr {
+  margin: 3em 0;
+  border-top: 2px dashed #d6d6d6;
+  background: none;
+}
+table {
+  margin: 1.5em 0;
+}
+th {
+  color: #000000;
+}
+th,
+td {
+  padding: 0.66em 1em;
+  border: 1px solid #d6d6d6;
+}
+code {
+  color: #000000;
+  background-color: #f0f0f0;
+}
+pre.editor-colors {
+  margin: 1.5em 0;
+  padding: 1em;
+  font-size: 0.92em;
+  border-radius: 3px;
+  background-color: #f5f5f5;
+}
+kbd {
+  color: #000000;
+  border: 1px solid #d6d6d6;
+  border-bottom: 2px solid #c7c7c7;
+  background-color: #f0f0f0;
+}
+
+.bracket-matcher .region {
+  border-bottom: 1px dotted lime;
+  position: absolute;
+}
+.line-number.bracket-matcher.bracket-matcher {
+  color: #373b41;
+  background-color: #e0e0e0;
+}
+
+.spell-check-misspelling .region {
+  border-bottom: 2px dotted rgba(255, 51, 51, 0.75);
+}
+.spell-check-corrections {
+  width: 25em !important;
+}
+
+pre.editor-colors {
+  background-color: #ffffff;
+  color: #1d1f21;
+}
+pre.editor-colors .wrap-guide {
+  background-color: #c5c8c6;
+}
+pre.editor-colors .indent-guide {
+  color: #c5c8c6;
+}
+pre.editor-colors .invisible-character {
+  color: #c5c8c6;
+}
+pre.editor-colors .gutter {
+  background-color: #ffffff;
+  color: #b4b7b4;
+}
+pre.editor-colors .gutter .line-number {
+  padding: 0 0.25em 0 0.5em;
+  -webkit-font-smoothing: antialiased;
+}
+pre.editor-colors .gutter .line-number.cursor-line {
+  background-color: #e0e0e0;
+  color: #373b41;
+}
+pre.editor-colors .gutter .line-number.cursor-line-no-selection {
+  color: #373b41;
+}
+pre.editor-colors .gutter .line-number.folded,
+pre.editor-colors .gutter .line-number:after,
+pre.editor-colors .fold-marker:after {
+  color: #b4b7b4;
+}
+pre.editor-colors .invisible {
+  color: #1d1f21;
+}
+pre.editor-colors .cursor {
+  color: #1d1f21;
+}
+pre.editor-colors .selection .region {
+  background-color: #e0e0e0;
+}
+pre.editor-colors .bracket-matcher .region {
+  border-color: #b4b7b4;
+}
+.syntax--comment {
+  color: #969896;
+}
+.syntax--comment .syntax--markup.syntax--link {
+  color: #969896;
+}
+.syntax--entity.syntax--name.syntax--type {
+  color: #f0c674;
+}
+.syntax--entity.syntax--other.syntax--inherited-class {
+  color: #b5bd68;
+}
+.syntax--keyword {
+  color: #b294bb;
+}
+.syntax--keyword.syntax--control {
+  color: #b294bb;
+}
+.syntax--keyword.syntax--operator {
+  color: #1d1f21;
+}
+.syntax--keyword.syntax--other.syntax--special-method {
+  color: #81a2be;
+}
+.syntax--keyword.syntax--other.syntax--unit {
+  color: #de935f;
+}
+.syntax--storage {
+  color: #b294bb;
+}
+.syntax--constant {
+  color: #de935f;
+}
+.syntax--constant.syntax--character.syntax--escape {
+  color: #8abeb7;
+}
+.syntax--constant.syntax--numeric {
+  color: #de935f;
+}
+.syntax--constant.syntax--other.syntax--color {
+  color: #8abeb7;
+}
+.syntax--constant.syntax--other.syntax--symbol {
+  color: #8abeb7;
+}
+.syntax--variable {
+  color: #cc6666;
+}
+.syntax--variable.syntax--interpolation {
+  color: #a3685a;
+}
+.syntax--variable.syntax--parameter.syntax--function {
+  color: #1d1f21;
+}
+.syntax--invalid.syntax--illegal {
+  background-color: #cc6666;
+  color: #ffffff;
+}
+.syntax--string {
+  color: #b5bd68;
+}
+.syntax--string.syntax--regexp {
+  color: #8abeb7;
+}
+.syntax--string.syntax--regexp .syntax--source.syntax--ruby.syntax--embedded {
+  color: #f0c674;
+}
+.syntax--string.syntax--other.syntax--link {
+  color: #cc6666;
+}
+.syntax--punctuation.syntax--definition.syntax--parameters,
+.syntax--punctuation.syntax--definition.syntax--array {
+  color: #1d1f21;
+}
+.syntax--punctuation.syntax--definition.syntax--heading,
+.syntax--punctuation.syntax--definition.syntax--identity {
+  color: #81a2be;
+}
+.syntax--punctuation.syntax--definition.syntax--bold {
+  color: #f0c674;
+  font-weight: bold;
+}
+.syntax--punctuation.syntax--definition.syntax--italic {
+  color: #b294bb;
+  font-style: italic;
+}
+.syntax--punctuation.syntax--section.syntax--embedded {
+  color: #a3685a;
+}
+.syntax--punctuation.syntax--section.syntax--method,
+.syntax--punctuation.syntax--section.syntax--class,
+.syntax--punctuation.syntax--section.syntax--inner-class {
+  color: #1d1f21;
+}
+.syntax--support.syntax--class {
+  color: #f0c674;
+}
+.syntax--support.syntax--function {
+  color: #8abeb7;
+}
+.syntax--support.syntax--function.syntax--any-method {
+  color: #81a2be;
+}
+.syntax--entity.syntax--name.syntax--function {
+  color: #81a2be;
+}
+.syntax--entity.syntax--name.syntax--class,
+.syntax--entity.syntax--name.syntax--type.syntax--class {
+  color: #f0c674;
+}
+.syntax--entity.syntax--name.syntax--section {
+  color: #81a2be;
+}
+.syntax--entity.syntax--name.syntax--tag {
+  color: #cc6666;
+}
+.syntax--entity.syntax--other.syntax--attribute-name {
+  color: #de935f;
+}
+.syntax--entity.syntax--other.syntax--attribute-name.syntax--id {
+  color: #81a2be;
+}
+.syntax--meta.syntax--class {
+  color: #f0c674;
+}
+.syntax--meta.syntax--class.syntax--body {
+  color: #1d1f21;
+}
+.syntax--meta.syntax--link {
+  color: #de935f;
+}
+.syntax--meta.syntax--method-call,
+.syntax--meta.syntax--method {
+  color: #1d1f21;
+}
+.syntax--meta.syntax--require {
+  color: #81a2be;
+}
+.syntax--meta.syntax--selector {
+  color: #b294bb;
+}
+.syntax--meta.syntax--separator {
+  background-color: #373b41;
+  color: #1d1f21;
+}
+.syntax--meta.syntax--tag {
+  color: #1d1f21;
+}
+.syntax--none {
+  color: #1d1f21;
+}
+.syntax--markup.syntax--bold {
+  color: #de935f;
+  font-weight: bold;
+}
+.syntax--markup.syntax--changed {
+  color: #b294bb;
+}
+.syntax--markup.syntax--deleted {
+  color: #cc6666;
+}
+.syntax--markup.syntax--italic {
+  color: #b294bb;
+  font-style: italic;
+}
+.syntax--markup.syntax--heading {
+  color: #cc6666;
+}
+.syntax--markup.syntax--heading .syntax--punctuation.syntax--definition.syntax--heading {
+  color: #81a2be;
+}
+.syntax--markup.syntax--link {
+  color: #81a2be;
+}
+.syntax--markup.syntax--inserted {
+  color: #b5bd68;
+}
+.syntax--markup.syntax--quote {
+  color: #de935f;
+}
+.syntax--markup.syntax--raw {
+  color: #b5bd68;
+}
+.syntax--source.syntax--gfm .syntax--markup {
+  -webkit-font-smoothing: auto;
+}
+.syntax--source.syntax--gfm .syntax--link .syntax--entity {
+  color: #8abeb7;
+}
+.syntax--source.syntax--cs .syntax--keyword.syntax--operator {
+  color: #b294bb;
+}
+.syntax--source.syntax--json .syntax--meta.syntax--structure.syntax--dictionary.syntax--json > .syntax--string.syntax--quoted.syntax--json {
+  color: #cc6666;
+}
+.syntax--source.syntax--json .syntax--meta.syntax--structure.syntax--dictionary.syntax--json > .syntax--string.syntax--quoted.syntax--json > .syntax--punctuation.syntax--string {
+  color: #cc6666;
+}
+.syntax--source.syntax--json .syntax--meta.syntax--structure.syntax--dictionary.syntax--json > .syntax--value.syntax--json > .syntax--string.syntax--quoted.syntax--json,
+.syntax--source.syntax--json .syntax--meta.syntax--structure.syntax--array.syntax--json > .syntax--value.syntax--json > .syntax--string.syntax--quoted.syntax--json,
+.syntax--source.syntax--json .syntax--meta.syntax--structure.syntax--dictionary.syntax--json > .syntax--value.syntax--json > .syntax--string.syntax--quoted.syntax--json > .syntax--punctuation,
+.syntax--source.syntax--json .syntax--meta.syntax--structure.syntax--array.syntax--json > .syntax--value.syntax--json > .syntax--string.syntax--quoted.syntax--json > .syntax--punctuation {
+  color: #b5bd68;
+}
+.syntax--source.syntax--json .syntax--meta.syntax--structure.syntax--dictionary.syntax--json > .syntax--constant.syntax--language.syntax--json,
+.syntax--source.syntax--json .syntax--meta.syntax--structure.syntax--array.syntax--json > .syntax--constant.syntax--language.syntax--json {
+  color: #8abeb7;
+}
+
+/*
+ * Your Stylesheet
+ *
+ * This stylesheet is loaded when Atom starts up and is reloaded automatically
+ * when it is changed and saved.
+ *
+ * Add your own CSS or Less to fully customize Atom.
+ * If you are unfamiliar with Less, you can read more about it here:
+ * http://lesscss.org
+ */
+/*
+ * Examples
+ * (To see them, uncomment and save)
+ */
+</style>
+
+  </head>
+  <body>
+    <h1>Image Segmentation via K-means</h1>
+<p>Image segmentation is the process of partitioning a digital image into multiple segments (sets of pixels, also known as image objects). From the viewpoint of machine learning, image segmentation can be considered as pixel clustering problem. One of the most famous clustering algorithms in the world is k-means. In this tutorial, we are going to learn how to segment images via K-means.</p>
+<h2>Naive K-means Clustering</h2>
+<p>Clustering is to group objects in such a way that objects in the same group (called a cluster) are more similar (in some sense) to each other than to those in other groups (clusters). Among various clustering methods, K-means is perhaps the most popular one.</p>
+<center>
+<img style="width:50%" src="image\data.png">
+</center>
+<p>The basic idea of K-means is to maintain a list of k cluster centers and updated them iteratively. Given cluster centers, each data point is assigned to the cluster whose center is closest to this point.</p>
+<ol>
+<li>
+<p>Random initialize K cluster centers. Denote them by <span class="math inline-math"><script type="math/tex">C_1, C_2, ..., C_K</script></span>. In practice, we usually randomly choose K data points as our initial centers.</p>
+</li>
+<li>
+<p>Assign data points into clusters.<br>
+For each data point <span class="math inline-math"><script type="math/tex">p</script></span>, find the closest clusters center <span class="math inline-math"><script type="math/tex">C_i</script></span>, then assign point <span class="math inline-math"><script type="math/tex">p</script></span> to cluster <span class="math inline-math"><script type="math/tex">i</script></span>.</p>
+<span class="math display-math"><script type="math/tex; mode=display">\text{cluster of }p = \arg\min_i \text{Distance}(p, C_i)
+</script></span>
+<span class="math display-math"><script type="math/tex; mode=display">\text{cluster}_i = \{p| i = \arg\min_j \text{Distance}(p, C_j)\}
+</script></span>
+<p>Here, <span class="math inline-math"><script type="math/tex">\text{Distance}(\cdot, \cdot)</script></span> is a distance metric. The most commonly used one is Euclidean distance.</p>
+<span class="math display-math"><script type="math/tex; mode=display"> \text{Distance}(p, q) = ||p-q||_2 = \sqrt{\sum_i (p_i-q_i)^2}
+
+</script></span>
+</li>
+<li>
+<p>Update cluster centers. For each cluster, compute its new cluster center.</p>
+<span class="math display-math"><script type="math/tex; mode=display">C_i = \text{mean of cluster}_i = \frac{1}{|\text{cluster}_i|}\sum_{p\in \text{cluster}_i} p
+</script></span>
+</li>
+<li>
+<p>Repeat step 2 and 3, until result converge, i.e., cluster centers and cluster assignment do not change any more. In assignment, this is simplified to choosing a large iteration number, instead of check whether it converges or not.</p>
+</li>
+</ol>
+<p><strong>Task</strong>:
+You need to complete <code style="font-family: Menlo, Consolas, &quot;DejaVu Sans Mono&quot;, monospace;">naive_k_means</code> function in <code style="font-family: Menlo, Consolas, &quot;DejaVu Sans Mono&quot;, monospace;">segment.py</code></p>
+<p>Implementation tips:</p>
+<p><a href="https://docs.scipy.org/doc//numpy-1.10.4/reference/generated/numpy.random.choice.html"><code style="font-family: Menlo, Consolas, &quot;DejaVu Sans Mono&quot;, monospace;">np.random.choice</code></a> could help you choose K data points as initial centers. This example random chooses 3 numbers from 0 to 9 without duplication.</p>
+<pre class="editor-colors lang-python" style="tab-size: 2;"><span class="syntax--source syntax--python">idx <span class="syntax--keyword syntax--operator">=</span> np.<span class="syntax--variable syntax--other syntax--object syntax--property">random</span>.<span class="syntax--entity syntax--name syntax--function">choice</span>(<span class="syntax--constant syntax--numeric">10</span>, <span class="syntax--variable syntax--parameter syntax--function">size</span><span class="syntax--keyword syntax--operator">=</span><span class="syntax--constant syntax--numeric">3</span>, <span class="syntax--variable syntax--parameter syntax--function">replace</span><span class="syntax--keyword syntax--operator">=</span><span class="syntax--constant syntax--language">False</span>)
+<span class="syntax--comment syntax--line"># array([9, 4, 6])</span></span></pre>
+<p><a href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.spatial.distance.cdist.html"><code style="font-family: Menlo, Consolas, &quot;DejaVu Sans Mono&quot;, monospace;">scipy.spatial.distance.cdist</code></a> could compute Euclidean distance between points.</p>
+<pre class="editor-colors lang-python" style="tab-size: 2;"><span class="syntax--source syntax--python"><span class="syntax--keyword syntax--control">from</span> scipy.spatial.distance <span class="syntax--keyword syntax--control">import</span> cdist
+a <span class="syntax--keyword syntax--operator">=</span> np.<span class="syntax--variable syntax--other syntax--object syntax--property">random</span>.<span class="syntax--entity syntax--name syntax--function">uniform</span>(<span class="syntax--variable syntax--parameter syntax--function">size</span><span class="syntax--keyword syntax--operator">=</span>(<span class="syntax--constant syntax--numeric">5</span>,<span class="syntax--constant syntax--numeric">2</span>))
+b <span class="syntax--keyword syntax--operator">=</span> np.<span class="syntax--variable syntax--other syntax--object syntax--property">random</span>.<span class="syntax--entity syntax--name syntax--function">uniform</span>(<span class="syntax--variable syntax--parameter syntax--function">size</span><span class="syntax--keyword syntax--operator">=</span>(<span class="syntax--constant syntax--numeric">4</span>,<span class="syntax--constant syntax--numeric">2</span>))
+dist <span class="syntax--keyword syntax--operator">=</span> <span class="syntax--entity syntax--name syntax--function">cdist</span>(a,b)
+<span class="syntax--comment syntax--line"># dist.shape == (5,4)</span>
+<span class="syntax--comment syntax--line"># dist[i,j] == Euclidean distance between a[i] and b[j]</span></span></pre>
+<p><a href="https://numpy.org/doc/stable/reference/generated/numpy.argmin.html"><code style="font-family: Menlo, Consolas, &quot;DejaVu Sans Mono&quot;, monospace;">numpy.argmin</code></a> could help you find the index of minimal values along certain dimension.</p>
+<pre class="editor-colors lang-python" style="tab-size: 2;"><span class="syntax--source syntax--python">x <span class="syntax--keyword syntax--operator">=</span> np.<span class="syntax--entity syntax--name syntax--function">array</span>([[<span class="syntax--constant syntax--numeric">4</span>,<span class="syntax--constant syntax--numeric">5</span>,<span class="syntax--constant syntax--numeric">2</span>],
+              [<span class="syntax--constant syntax--numeric">1</span>,<span class="syntax--constant syntax--numeric">0</span>,<span class="syntax--constant syntax--numeric">3</span>]])
+np.<span class="syntax--entity syntax--name syntax--function">argmin</span>(x, <span class="syntax--variable syntax--parameter syntax--function">axis</span><span class="syntax--keyword syntax--operator">=</span><span class="syntax--constant syntax--numeric">1</span>) <span class="syntax--comment syntax--line"># array([2, 1])</span>
+np.<span class="syntax--entity syntax--name syntax--function">argmin</span>(x, <span class="syntax--variable syntax--parameter syntax--function">axis</span><span class="syntax--keyword syntax--operator">=</span><span class="syntax--constant syntax--numeric">0</span>) <span class="syntax--comment syntax--line"># array([1, 1, 0])</span></span></pre>
+<p><a href="https://numpy.org/doc/stable/reference/generated/numpy.mean.html"><code style="font-family: Menlo, Consolas, &quot;DejaVu Sans Mono&quot;, monospace;">numpy.mean</code></a> could computes the arithmetic mean along a specified axis.</p>
+<pre class="editor-colors lang-python" style="tab-size: 2;"><span class="syntax--source syntax--python">x <span class="syntax--keyword syntax--operator">=</span> np.<span class="syntax--entity syntax--name syntax--function">array</span>([[<span class="syntax--constant syntax--numeric">4</span>,<span class="syntax--constant syntax--numeric">5</span>,<span class="syntax--constant syntax--numeric">2</span>],
+              [<span class="syntax--constant syntax--numeric">1</span>,<span class="syntax--constant syntax--numeric">0</span>,<span class="syntax--constant syntax--numeric">3</span>]])
+np.<span class="syntax--entity syntax--name syntax--function">mean</span>(x, <span class="syntax--variable syntax--parameter syntax--function">axis</span><span class="syntax--keyword syntax--operator">=</span><span class="syntax--constant syntax--numeric">1</span>) <span class="syntax--comment syntax--line"># array([3.67, 1.33])</span>
+np.<span class="syntax--entity syntax--name syntax--function">mean</span>(x, <span class="syntax--variable syntax--parameter syntax--function">axis</span><span class="syntax--keyword syntax--operator">=</span><span class="syntax--constant syntax--numeric">0</span>) <span class="syntax--comment syntax--line"># array([2.5, 2.5, 2.5])</span></span></pre>
+<h2>Image Segmentation via Naive K-means</h2>
+<p>From the viewpoint of machine learning, image segmentation can be considered as pixel clustering problem. Given an image of shape <span class="math inline-math"><script type="math/tex">(H, W)</script></span>, we have <span class="math inline-math"><script type="math/tex">HW</script></span> pixels in total. Our task is to group these pixels into several clusters.</p>
+<p>Intuitively, if two pixels share similar pixel values, they should be in same cluster. In addition, position also matters. If two pixels are close to each other in image, they should tend to be in same cluster. So, we cluster pixels according to pixel values and pixel positions in this tutorial. Here is an example of how to segment <code style="font-family: Menlo, Consolas, &quot;DejaVu Sans Mono&quot;, monospace;">Color-Blocks.jpg</code> into 8 parts.</p>
+<p>First we organize RGB values and positions of all pixels as an array <code style="font-family: Menlo, Consolas, &quot;DejaVu Sans Mono&quot;, monospace;">pixel_feature</code> of shape <span class="math inline-math"><script type="math/tex">(HW, 5)</script></span>. First 3 columns of <code style="font-family: Menlo, Consolas, &quot;DejaVu Sans Mono&quot;, monospace;">pixel_feature</code> are RGB values. The last 2 columns of <code style="font-family: Menlo, Consolas, &quot;DejaVu Sans Mono&quot;, monospace;">pixel_feature</code> are row indices and column indices respectively.</p>
+<pre class="editor-colors lang-python" style="tab-size: 2;"><span class="syntax--source syntax--python">img <span class="syntax--keyword syntax--operator">=</span> <span class="syntax--entity syntax--name syntax--function">read_img_as_array</span>(<span class="syntax--string syntax--quoted">'Color-Blocks.jpg'</span>)
+H, W, _ <span class="syntax--keyword syntax--operator">=</span> img.<span class="syntax--variable syntax--other syntax--object syntax--property">shape</span>
+
+row, col <span class="syntax--keyword syntax--operator">=</span> np.<span class="syntax--entity syntax--name syntax--function">indices</span>((H, W))
+indices <span class="syntax--keyword syntax--operator">=</span> np.<span class="syntax--entity syntax--name syntax--function">stack</span>([row, col], <span class="syntax--variable syntax--parameter syntax--function">axis</span><span class="syntax--keyword syntax--operator">=</span><span class="syntax--constant syntax--numeric">2</span>)
+pixel_feature <span class="syntax--keyword syntax--operator">=</span> np.<span class="syntax--entity syntax--name syntax--function">concatenate</span>([img, indices], <span class="syntax--variable syntax--parameter syntax--function">axis</span><span class="syntax--keyword syntax--operator">=</span><span class="syntax--keyword syntax--operator">-</span><span class="syntax--constant syntax--numeric">1</span>)
+pixel_feature <span class="syntax--keyword syntax--operator">=</span> pixel_feature.<span class="syntax--entity syntax--name syntax--function">reshape</span>((H <span class="syntax--keyword syntax--operator">*</span> W, <span class="syntax--constant syntax--numeric">5</span>))</span></pre>
+<p>Then, we group pixels into 8 clusters.</p>
+<pre class="editor-colors lang-python" style="tab-size: 2;"><span class="syntax--source syntax--python">cluster_num, means <span class="syntax--keyword syntax--operator">=</span> <span class="syntax--entity syntax--name syntax--function">naive_k_means</span>(pixel_feature, <span class="syntax--constant syntax--numeric">8</span>)</span></pre>
+<p>Finally, we draw clustering result as an image.</p>
+<pre class="editor-colors lang-python" style="tab-size: 2;"><span class="syntax--source syntax--python">cluster_num <span class="syntax--keyword syntax--operator">=</span> cluster_num.<span class="syntax--entity syntax--name syntax--function">reshape</span>([H, W])
+segment_visualization <span class="syntax--keyword syntax--operator">=</span> <span class="syntax--entity syntax--name syntax--function">draw_segment_result</span>(cluster_num, <span class="syntax--variable syntax--parameter syntax--function">colors</span><span class="syntax--keyword syntax--operator">=</span>means[:, :<span class="syntax--constant syntax--numeric">3</span>])
+<span class="syntax--entity syntax--name syntax--function">save_array_as_img</span>(segment_visualization, <span class="syntax--string syntax--quoted">'naive_k_means.png'</span>)</span></pre>
+<center>
+<img style="width:32%" src="Color-Blocks.jpg">
+<img style="width:32%" src="image\naive_k_means.png">
+<img style="width:32%" src="image\naive_k_means_random_color.png">
+</center>
+<p>From left to right: <code style="font-family: Menlo, Consolas, &quot;DejaVu Sans Mono&quot;, monospace;">Color-Blocks.jpg</code> and its segmentation result.</p>
+<h2>Expectation Maximization (EM) Clustering</h2>
+<p>A major drawback of naive K-means is that it cannot tell cluster shape and size, but only cluster means. It implicitly assumes all clusters have same size and all clusters are of spherical shape. However, these assumptions are usually not true in reality. EM clustering overcomes this drawback. In addition to cluster means, EM clustering also estimates cluster variances. Bigger variance indicates bigger cluster size. Clusters may have different variances along different dimension, so elliptical shapes are allowed.</p>
+<center>
+<img style="width:60%" src="image\GMM.png">
+</center>
+<!-- A property of naive K-means is that each point is assigned to either this cluster or that cluster without compromise during iteration. This kind of assignment is referred as __hard assignment__. Another way is soft assignment. Instead of assigning point to a single cluster, __soft assignment__ computes a list of probability of a point belonging to each cluster. E.g., $[0.1, 0.2, 0.7]$ means this point belongs to zeroth cluster with probability 0.1, first cluster with probability 0.2, and second cluster with probability 0.7. This kind of soft assignment leads to another clustering algorithm, __Expectation Maximization (EM) Clustering__. -->
+<!-- <center>
+<img style="width:60%" src="https://d2908q01vomqb2.cloudfront.net/f1f836cb4ea6efb2a0b1b99f41ad8b103eff4b59/2018/11/02/k-means-sagemaker-1.gif"/>
+</center> -->
+<p>Expectation Maximization (EM) usually assumes that whole dataset obeys Gaussian mixture model and each cluster obeys a Gaussian distribution. <a href="https://scikit-learn.org/stable/modules/generated/sklearn.mixture.GaussianMixture.html"><code style="font-family: Menlo, Consolas, &quot;DejaVu Sans Mono&quot;, monospace;">sklearn.mixture.GaussianMixture</code></a> could help us estimate means and variances of the Gaussian mixture model and tells us which cluster each pixel belongs to.</p>
+<p>First, we create a <code style="font-family: Menlo, Consolas, &quot;DejaVu Sans Mono&quot;, monospace;">GaussianMixture</code> model, and set the number of components to the number of segments you want.</p>
+<pre class="editor-colors lang-python" style="tab-size: 2;"><span class="syntax--source syntax--python"><span class="syntax--keyword syntax--control">from</span> sklearn.mixture <span class="syntax--keyword syntax--control">import</span> GaussianMixture
+gmm <span class="syntax--keyword syntax--operator">=</span> <span class="syntax--entity syntax--name syntax--function">GaussianMixture</span>(<span class="syntax--variable syntax--parameter syntax--function">n_components</span><span class="syntax--keyword syntax--operator">=</span><span class="syntax--constant syntax--numeric">8</span>)</span></pre>
+<p>Then, fit the model to our pixel features.</p>
+<pre class="editor-colors lang-python" style="tab-size: 2;"><span class="syntax--source syntax--python">gmm.<span class="syntax--entity syntax--name syntax--function">fit</span>(pixel_feature)</span></pre>
+<p>Finally, get the cluster each pixel belongs to and also get cluster means.</p>
+<pre class="editor-colors lang-python" style="tab-size: 2;"><span class="syntax--source syntax--python">cluster_num <span class="syntax--keyword syntax--operator">=</span> gmm.<span class="syntax--entity syntax--name syntax--function">predict</span>(pixel_feature)
+means <span class="syntax--keyword syntax--operator">=</span> gmm.<span class="syntax--variable syntax--other syntax--object syntax--property">means_</span></span></pre>
+<p>Draw segmentation result as an image:</p>
+<center>
+<img style="width:32%" src="Color-Blocks.jpg">
+<img style="width:32%" src="image\em_clustering.png">
+<img style="width:32%" src="image\em_clustering_random_color.png">
+EM Clustering
+</center>
+<h1>Assignment</h1>
+<p>Task:
+Partition <code style="font-family: Menlo, Consolas, &quot;DejaVu Sans Mono&quot;, monospace;">sun.jpg</code> into 10 segments via naive K-means and EM clustering:</p>
+<ol>
+<li>Naive K-means (8 points).
+<ul>
+<li>Complete functions <code style="font-family: Menlo, Consolas, &quot;DejaVu Sans Mono&quot;, monospace;">naive_k_means</code> in <code style="font-family: Menlo, Consolas, &quot;DejaVu Sans Mono&quot;, monospace;">segment.py</code>. You should implement all four steps of K-means described above by your own code. <code style="font-family: Menlo, Consolas, &quot;DejaVu Sans Mono&quot;, monospace;">sklearn.cluster.KMeans</code> is not allowed to use.</li>
+<li>Apply naive K-means to <code style="font-family: Menlo, Consolas, &quot;DejaVu Sans Mono&quot;, monospace;">sun.jpg</code> and save the segmentation result to <code style="font-family: Menlo, Consolas, &quot;DejaVu Sans Mono&quot;, monospace;">naive_k_means.png</code>.</li>
+</ul>
+</li>
+<li>EM clustering (2 points).
+<ul>
+<li>Complete functions <code style="font-family: Menlo, Consolas, &quot;DejaVu Sans Mono&quot;, monospace;">em_clustering</code> in <code style="font-family: Menlo, Consolas, &quot;DejaVu Sans Mono&quot;, monospace;">segment.py</code>.</li>
+<li>Apply EM clustering to <code style="font-family: Menlo, Consolas, &quot;DejaVu Sans Mono&quot;, monospace;">sun.jpg</code> and save the segmentation result to <code style="font-family: Menlo, Consolas, &quot;DejaVu Sans Mono&quot;, monospace;">em_clustering.png</code>.</li>
+</ul>
+</li>
+<li>Describe the difference between results of naive K-means and EM clustering, and discuss the reason behind it. Save your answer to the submitted PDF file. (2 points)</li>
+</ol>
+<p>You may test your code on <code style="font-family: Menlo, Consolas, &quot;DejaVu Sans Mono&quot;, monospace;">Color-Blocks.jpg</code> to check whether you can get similar results as shown in this tutorial.</p>
+<p>Your submission should contain:</p>
+<ol>
+<li>A PDF file that consists of all the images you are asked to save and all the textual answers.</li>
+<li>A runnable program <code style="font-family: Menlo, Consolas, &quot;DejaVu Sans Mono&quot;, monospace;">segment.py</code> that can reproduce your results.</li>
+</ol>
+<p>Please submit before <strong>23:59 on April 15th (Thursday)</strong>. You may submit as many times as you want, but only your latest submission will be graded.</p>
+
+  </body>
+</html>

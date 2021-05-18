@@ -1,0 +1,3 @@
+2020/10/1 is the most pleasant Day in Beijing,and the temperature is 26C.
+2020/10/4 is the most pleasant Day in Shanghai,and the temperature is 29C.
+2020/10/4 is the most pleasant Day in Hongkong,and the temperature is 27C.
